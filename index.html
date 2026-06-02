@@ -37,6 +37,34 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* --- Scroll Suave e Barra de Rolagem --- */
+        html {
+            scroll-behavior: smooth; /* Efeito de rolagem suave */
+            /* Estilização para o Firefox */
+            scrollbar-width: thin; /* Deixa a barra mais fina */
+            scrollbar-color: var(--primary-light) var(--bg-color); /* cor do 'puxador' e cor do fundo */
+        }
+
+        /* Estilização para Chrome, Edge, Opera e Safari */
+        ::-webkit-scrollbar {
+            width: 8px; /* Largura bem delicada para a barra vertical */
+            height: 8px; /* Altura caso haja rolagem horizontal */
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: var(--bg-color); /* Fundo da trilha combinando com o site */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--primary-light); /* Cor do puxador */
+            border-radius: 10px; /* Bordas bem redondinhas */
+            border: 2px solid var(--bg-color); /* Cria um "respiro" entre o puxador e a trilha */
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--primary); /* Escurece um pouco ao passar o mouse */
+        }
+
         /* Nova fonte para os títulos e preços */
         h1, h2, h3, .service-price {
             font-family: 'Montserrat', sans-serif;
@@ -248,8 +276,10 @@
 
     <div class="container">
         <header>
-            <div class="logo-container animate-1">
-                <img src="Logos.png" alt="Ana C Nails Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<h1 style=\'font-size: 40px; margin: 0;\'>AN</h1>';">
+            <div class="animate-1">
+                <div class="logo-container">
+                    <img src="Logos.png" alt="Ana C Nails Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<h1 style=\'font-size: 40px; margin: 0;\'>AN</h1>';">
+                </div>
             </div>
             
             <h1 style="display: none;">Ana Nails</h1> 
@@ -282,7 +312,15 @@
                     <span class="service-price">R$ 75</span>
                 </li>
                 <li class="service-item">
+                    <span class="service-name">Pedicure</span>
+                    <span class="service-price">R$ 55</span>
+                </li>
+                <li class="service-item">
                     <span class="service-name">Pedicure + esmaltação em gel</span>
+                    <span class="service-price">R$ 60</span>
+                </li>
+                <li class="service-item">
+                    <span class="service-name">Blindagem</span>
                     <span class="service-price">R$ 60</span>
                 </li>
             </ul>
