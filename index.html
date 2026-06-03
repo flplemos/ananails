@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ana Nails | Sua autoestima começa nas unhas</title>
     
-    <!-- Fontes atualizadas: Lato para textos longos e Montserrat para os Títulos (Nossos Serviços, Preços) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
@@ -37,35 +36,31 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* --- Scroll Suave e Barra de Rolagem --- */
         html {
-            scroll-behavior: smooth; /* Efeito de rolagem suave */
-            /* Estilização para o Firefox */
-            scrollbar-width: thin; /* Deixa a barra mais fina */
-            scrollbar-color: var(--primary-light) var(--bg-color); /* cor do 'puxador' e cor do fundo */
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-light) var(--bg-color);
         }
 
-        /* Estilização para Chrome, Edge, Opera e Safari */
         ::-webkit-scrollbar {
-            width: 8px; /* Largura bem delicada para a barra vertical */
-            height: 8px; /* Altura caso haja rolagem horizontal */
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-track {
-            background-color: var(--bg-color); /* Fundo da trilha combinando com o site */
+            background-color: var(--bg-color);
         }
 
         ::-webkit-scrollbar-thumb {
-            background-color: var(--primary-light); /* Cor do puxador */
-            border-radius: 10px; /* Bordas bem redondinhas */
-            border: 2px solid var(--bg-color); /* Cria um "respiro" entre o puxador e a trilha */
+            background-color: var(--primary-light);
+            border-radius: 10px;
+            border: 2px solid var(--bg-color);
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background-color: var(--primary); /* Escurece um pouco ao passar o mouse */
+            background-color: var(--primary);
         }
 
-        /* Nova fonte para os títulos e preços */
         h1, h2, h3, .service-price {
             font-family: 'Montserrat', sans-serif;
             font-weight: 600;
@@ -78,7 +73,6 @@
             padding: 0 20px;
         }
 
-        /* --- Animações de Entrada (Fade In Up) --- */
         @keyframes fadeUp {
             from {
                 opacity: 0;
@@ -90,13 +84,11 @@
             }
         }
 
-        /* Classes para animar os elementos em sequência (efeito cascata) */
         .animate-1 { opacity: 0; animation: fadeUp 0.8s ease-out 0.1s forwards; }
         .animate-2 { opacity: 0; animation: fadeUp 0.8s ease-out 0.3s forwards; }
         .animate-3 { opacity: 0; animation: fadeUp 0.8s ease-out 0.5s forwards; }
         .animate-4 { opacity: 0; animation: fadeUp 0.8s ease-out 0.7s forwards; }
 
-        /* --- Cabeçalho --- */
         header {
             text-align: center;
             padding: 40px 0 20px;
@@ -113,10 +105,9 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 8px 20px rgba(139, 90, 83, 0.15); 
-            transition: transform 0.3s ease; /* Efeito suave ao passar o mouse */
+            transition: transform 0.3s ease;
         }
 
-        /* Efeito de leve expansão na logo ao passar o mouse (Hover), mais elegante que pulsar */
         .logo-container:hover {
             transform: scale(1.05);
         }
@@ -145,7 +136,6 @@
             font-weight: 700;
         }
 
-        /* --- Serviços --- */
         .services {
             background-color: var(--white);
             border-radius: 20px;
@@ -160,7 +150,7 @@
             font-size: 1.4rem;
             color: var(--primary);
             position: relative;
-            text-transform: uppercase; /* Deixa o título mais imponente */
+            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
@@ -178,16 +168,25 @@
             list-style: none;
         }
 
+        /* Modificações para o Accordion (Sanfona) */
         .service-item {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
             padding: 16px 0;
             border-bottom: 1px dashed rgba(139, 90, 83, 0.2);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* Remove aquele fundo azul no celular ao clicar */
         }
 
         .service-item:last-child {
             border-bottom: none;
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
 
         .service-name {
@@ -197,13 +196,51 @@
             padding-right: 15px;
         }
 
+        .service-price-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
         .service-price {
             font-size: 1.1rem;
             color: var(--primary);
             white-space: nowrap;
         }
 
-        /* --- Botões --- */
+        .service-icon {
+            font-size: 0.8rem;
+            color: var(--primary-light);
+            transition: transform 0.3s ease;
+        }
+
+        /* Estilo da descrição (escondida por padrão) */
+        .service-desc {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .service-desc p {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            color: var(--primary-light);
+            padding-top: 8px;
+            line-height: 1.4;
+        }
+
+        /* Classes ativas quando o item é clicado */
+        .service-item.active .service-icon {
+            transform: rotate(180deg); /* Vira a setinha pra cima */
+            color: var(--primary);
+        }
+
+        .service-item.active .service-desc {
+            max-height: 80px; /* Espaço suficiente para 2/3 linhas de texto */
+            opacity: 1;
+        }
+
         .btn-whatsapp {
             display: flex;
             align-items: center;
@@ -251,7 +288,6 @@
             transform: translateY(-3px);
         }
 
-        /* --- Rodapé --- */
         footer {
             text-align: center;
             padding: 30px 0 20px;
@@ -295,30 +331,91 @@
         <section class="services animate-3">
             <h2>Nossos Serviços</h2>
             <ul class="service-list">
+                
+                <!-- Serviço 1 -->
                 <li class="service-item">
-                    <span class="service-name">Aplicação de tips</span>
-                    <span class="service-price">R$ 90</span>
+                    <div class="service-header">
+                        <span class="service-name">Aplicação de tips</span>
+                        <div class="service-price-wrapper">
+                            <span class="service-price">R$ 90</span>
+                            <i class="fa-solid fa-chevron-down service-icon"></i>
+                        </div>
+                    </div>
+                    <div class="service-desc">
+                        <p>Alongamento prático e resistente. Ideal para quem deseja unhas longas com muita naturalidade.</p>
+                    </div>
                 </li>
+
+                <!-- Serviço 2 -->
                 <li class="service-item">
-                    <span class="service-name">Manutenção até 20 dias</span>
-                    <span class="service-price">R$ 70</span>
+                    <div class="service-header">
+                        <span class="service-name">Manutenção até 20 dias</span>
+                        <div class="service-price-wrapper">
+                            <span class="service-price">R$ 70</span>
+                            <i class="fa-solid fa-chevron-down service-icon"></i>
+                        </div>
+                    </div>
+                    <div class="service-desc">
+                        <p>Reposição do gel e nivelamento para manter o seu alongamento perfeito e seguro no prazo ideal.</p>
+                    </div>
                 </li>
+
+                <!-- Serviço 3 -->
                 <li class="service-item">
-                    <span class="service-name">Manutenção até 30 dias</span>
-                    <span class="service-price">R$ 75</span>
+                    <div class="service-header">
+                        <span class="service-name">Manutenção até 30 dias</span>
+                        <div class="service-price-wrapper">
+                            <span class="service-price">R$ 75</span>
+                            <i class="fa-solid fa-chevron-down service-icon"></i>
+                        </div>
+                    </div>
+                    <div class="service-desc">
+                        <p>Para manutenções com prazo estendido. Avaliação necessária caso haja quebras na estrutura.</p>
+                    </div>
                 </li>
+
+                <!-- Serviço 4 -->
                 <li class="service-item">
-                    <span class="service-name">Banho em gel</span>
-                    <span class="service-price">R$ 75</span>
+                    <div class="service-header">
+                        <span class="service-name">Banho em gel</span>
+                        <div class="service-price-wrapper">
+                            <span class="service-price">R$ 75</span>
+                            <i class="fa-solid fa-chevron-down service-icon"></i>
+                        </div>
+                    </div>
+                    <div class="service-desc">
+                        <p>Cobertura protetora sobre a unha natural. Evita quebras e faz o esmalte durar semanas intacto.</p>
+                    </div>
                 </li>
+
+                <!-- Serviço 5 -->
                 <li class="service-item">
-                    <span class="service-name">Blindagem</span>
-                    <span class="service-price">R$ 60</span>
+                    <div class="service-header">
+                        <span class="service-name">Blindagem</span>
+                        <div class="service-price-wrapper">
+                            <span class="service-price">R$ 60</span>
+                            <i class="fa-solid fa-chevron-down service-icon"></i>
+                        </div>
+                    </div>
+                    <div class="service-desc">
+                        <p>Camada fina de proteção que blinda a unha natural, ideal para unhas muito fracas ou quebradiças.</p>
+                    </div>
                 </li>
+
+                <!-- Serviço 6 -->
                 <li class="service-item">
-                    <span class="service-name">Pedicure em gel</span>
-                    <span class="service-price">R$ 55</span>
+                    <div class="service-header">
+                        <span class="service-name">Pedicure em gel</span>
+                        <div class="service-price-wrapper">
+                            <span class="service-price">R$ 55</span>
+                            <i class="fa-solid fa-chevron-down service-icon"></i>
+                        </div>
+                    </div>
+                    <div class="service-desc">
+                        <p>Cutilagem, hidratação e esmaltação em gel nos pés para garantir brilho duradouro e zero descascados.</p>
+                    </div>
                 </li>
+
             </ul>
         </section>
 
@@ -339,5 +436,23 @@
         </footer>
     </div>
 
+    <!-- Script para fazer a Sanfona (Accordion) funcionar -->
+    <script>
+        const serviceItems = document.querySelectorAll('.service-item');
+
+        serviceItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Remove a classe 'active' de todos os outros itens (fecha os outros)
+                serviceItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                
+                // Adiciona/Remove a classe 'active' do item clicado (abre/fecha)
+                item.classList.toggle('active');
+            });
+        });
+    </script>
 </body>
 </html>
