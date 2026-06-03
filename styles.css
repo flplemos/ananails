@@ -123,6 +123,30 @@ header {
     object-fit: cover;
 }
 
+/* --- Etiqueta "Ver fotos" na Logo --- */
+.logo-ring {
+    position: relative; /* Isso é necessário para a etiqueta flutuar no lugar certo */
+}
+
+.photo-badge {
+    position: absolute;
+    bottom: -10px; /* Faz a etiqueta ficar metade dentro e metade fora da logo */
+    background-color: var(--white);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(139, 90, 83, 0.25);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none; /* Garante que o clique passe por ela e ative a logo */
+    z-index: 2;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .slogan {
     font-size: 1.15rem;
     font-style: italic;
@@ -295,6 +319,10 @@ header {
     background-color: var(--primary);
     color: var(--bg-color);
     transform: translateY(-3px);
+}
+
+.btn-instagram:active {
+    background-color: rgba(139, 90, 83, 0.1); /* Dá um leve brilho vinho ao tocar */
 }
 
 /* =========================================
