@@ -1,0 +1,487 @@
+/* =========================================
+   VARIÁVEIS E RESET
+========================================= */
+:root {
+    --bg-color: #FCE4E0;
+    --primary: #8B5A53;
+    --primary-light: #a9756d; 
+    --white: #FFFFFF;
+    --wpp-green: #25D366;
+    --wpp-hover: #20b858;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .service-price {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================================
+   SCROLLBAR (BARRA DE ROLAGEM)
+========================================= */
+html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-light) var(--bg-color);
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-light);
+    border-radius: 10px;
+    border: 2px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary);
+}
+
+/* =========================================
+   ANIMAÇÕES DE ENTRADA
+========================================= */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-1 { opacity: 0; animation: fadeUp 0.8s ease-out 0.1s forwards; }
+.animate-2 { opacity: 0; animation: fadeUp 0.8s ease-out 0.3s forwards; }
+.animate-3 { opacity: 0; animation: fadeUp 0.8s ease-out 0.5s forwards; }
+.animate-4 { opacity: 0; animation: fadeUp 0.8s ease-out 0.7s forwards; }
+
+/* =========================================
+   CABEÇALHO, LOGO E "STORY"
+========================================= */
+header {
+    text-align: center;
+    padding: 40px 0 20px;
+}
+
+/* O anel do "Story" */
+.logo-ring {
+    width: 142px;
+    height: 142px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--primary), var(--primary-light));
+    padding: 4px; /* Espessura do degradê */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 8px 20px rgba(139, 90, 83, 0.2);
+}
+
+.logo-ring:hover {
+    transform: scale(1.05);
+}
+
+.logo-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    border: 3px solid var(--bg-color); /* Cria o vão entre a logo e o anel colorido */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slogan {
+    font-size: 1.15rem;
+    font-style: italic;
+    margin-bottom: 8px;
+    color: var(--primary);
+}
+
+.location {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 25px;
+    color: var(--primary-light);
+    font-weight: 700;
+}
+
+/* =========================================
+   SERVIÇOS E ACCORDION (SANFONA)
+========================================= */
+.services {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 0 0 30px;
+    box-shadow: 0 10px 30px rgba(139, 90, 83, 0.08);
+}
+
+.services h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.4rem;
+    color: var(--primary);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.services h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 3px;
+    background-color: var(--primary-light);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.service-list { list-style: none; }
+
+.service-item {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 0;
+    border-bottom: 1px dashed rgba(139, 90, 83, 0.2);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent; 
+}
+
+.service-item:last-child { border-bottom: none; }
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.service-name {
+    font-weight: 400;
+    font-size: 1.05rem;
+    flex: 1;
+    padding-right: 15px;
+}
+
+.service-price-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.service-price {
+    font-size: 1.1rem;
+    color: var(--primary);
+    white-space: nowrap;
+}
+
+.service-icon {
+    font-size: 0.8rem;
+    color: var(--primary-light);
+    transition: transform 0.3s ease;
+}
+
+.service-desc {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.service-desc p {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    color: var(--primary-light);
+    padding-top: 8px;
+    line-height: 1.4;
+}
+
+.service-item.active .service-icon {
+    transform: rotate(180deg); 
+    color: var(--primary);
+}
+
+.service-item.active .service-desc {
+    max-height: 80px; 
+    opacity: 1;
+}
+
+/* =========================================
+   BOTÕES E AÇÕES
+========================================= */
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+}
+
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background-color: var(--wpp-green);
+    color: var(--white);
+    padding: 16px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+    background-color: var(--wpp-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-instagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    padding: 14px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.btn-instagram:hover {
+    background-color: var(--primary);
+    color: var(--bg-color);
+    transform: translateY(-3px);
+}
+
+/* =========================================
+   RODAPÉ E RESPONSIVIDADE
+========================================= */
+footer {
+    text-align: center;
+    padding: 30px 0 20px;
+    font-size: 0.8rem;
+    color: var(--primary-light);
+}
+
+@media (min-width: 480px) {
+    .services { padding: 40px 30px; }
+    .service-name { font-size: 1.1rem; }
+    .service-price { font-size: 1.2rem; }
+}
+
+/* =========================================
+   MODAL DE FOTOS (PORTFÓLIO)
+========================================= */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 35, 30, 0.95);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, visibility 0.4s ease; 
+}
+
+.modal.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 95%; /* Um pouco mais largo no celular */
+    max-height: 75vh; /* Dá um respiro maior em cima e embaixo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(0.85);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-content img {
+    max-width: 100%;
+    max-height: 75vh;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+
+.fade-img {
+    animation: fadeInImg 0.4s ease-in-out;
+}
+
+@keyframes fadeInImg {
+    0% { opacity: 0.6; transform: scale(0.98); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* --- Botão de Fechar com Fundo Delicado no Mobile --- */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: var(--white);
+    font-size: 24px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3); /* Fundo sutil para não sumir na foto */
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1005;
+}
+
+.close-modal:hover { 
+    background-color: var(--primary); 
+}
+
+/* --- Setas com Fundo Delicado no Mobile --- */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.3); /* Fundo sutil */
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 18px;
+    transition: 0.3s ease;
+    user-select: none;
+    text-decoration: none;
+    z-index: 10;
+}
+
+/* No celular, as setas ficam por cima da foto (nas bordas) */
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.prev:hover, .next:hover { 
+    background-color: var(--primary); 
+    transform: translateY(-50%) scale(1.1); 
+}
+
+.modal-indicators {
+    margin-top: 25px;
+    display: flex;
+    gap: 10px;
+}
+
+.dot {
+    cursor: pointer;
+    height: 8px;
+    width: 8px;
+    background-color: rgba(252, 228, 224, 0.4);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.dot.active, .dot:hover {
+    background-color: var(--bg-color);
+    transform: scale(1.4);
+}
+
+/* --- No Desktop as coisas ganham espaço (Adaptação para PC) --- */
+@media (min-width: 768px) {
+    .modal-content {
+        max-width: 80%; /* Evita que a foto grude nas setas no PC */
+    }
+    
+    .close-modal {
+        top: 25px;
+        right: 35px;
+        background-color: transparent; /* Tira o fundo redondo no PC */
+        font-size: 40px;
+        width: auto;
+        height: auto;
+    }
+
+    .close-modal:hover {
+        background-color: transparent;
+        color: var(--primary-light);
+    }
+
+    .prev, .next {
+        background-color: transparent; /* Tira o fundo redondo no PC */
+        font-size: 32px;
+        width: auto;
+        height: auto;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.6); /* Sombrinha na própria seta */
+    }
+
+    /* Joga as setas para fora da foto no PC */
+    .prev { left: -60px; }
+    .next { right: -60px; }
+
+    .prev:hover, .next:hover { 
+        background-color: transparent; 
+        color: var(--primary-light);
+        transform: translateY(-50%) scale(1.1); 
+    }
+}
