@@ -156,8 +156,7 @@
         </div>
     </div>
 
-    <!-- SCRIPTS -->
-    <script>
+<script>
         /* --- Lógica da Sanfona de Serviços --- */
         const serviceItems = document.querySelectorAll('.service-item');
 
@@ -179,6 +178,13 @@
             "3.png"
         ];
         
+        // 🚀 OTIMIZAÇÃO: Pré-carregamento (Preload) das imagens
+        // Isso faz o navegador baixar as fotos em background assim que o site abre
+        images.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
         let currentImageIndex = 0;
         const modal = document.getElementById('portfolioModal');
         const modalImg = document.getElementById('modalImage');
@@ -186,20 +192,20 @@
 
         function openModal() {
             modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Impede o site de rolar no fundo
-            updateModal(false); // Chama sem a animação extra na primeira abertura
+            document.body.style.overflow = 'hidden'; 
+            updateModal(false); 
         }
 
         function closeModal() {
             modal.classList.remove('show');
-            document.body.style.overflow = 'auto'; // Volta a rolar o site
+            document.body.style.overflow = 'auto'; 
         }
 
         function changeImage(direction) {
             currentImageIndex += direction;
             if (currentImageIndex >= images.length) currentImageIndex = 0;
             if (currentImageIndex < 0) currentImageIndex = images.length - 1;
-            updateModal(true); // Chama com animação ao trocar
+            updateModal(true); 
         }
 
         function currentSlide(index) {
@@ -209,9 +215,8 @@
 
         function updateModal(animate) {
             if (animate) {
-                // Remove a classe e força o navegador a recalcular para reiniciar a animação
                 modalImg.classList.remove('fade-img');
-                void modalImg.offsetWidth; 
+                void modalImg.offsetWidth; // Força o reflow do navegador
                 modalImg.classList.add('fade-img');
             }
             
@@ -227,6 +232,29 @@
                 closeModal();
             }
         });
+
+        // 📱 UX MOBILE: Suporte para deslizar (Swipe) com o dedo
+        let touchstartX = 0;
+        let touchendX = 0;
+
+        modalImg.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+
+        modalImg.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            // Se o movimento for maior que 50 pixels, consideramos um "swipe" válido
+            if (touchendX < touchstartX - 50) {
+                changeImage(1); // Deslizou pra esquerda (Próxima)
+            }
+            if (touchendX > touchstartX + 50) {
+                changeImage(-1); // Deslizou pra direita (Anterior)
+            }
+        }
     </script>
 </body>
 </html>
