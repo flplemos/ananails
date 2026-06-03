@@ -168,14 +168,13 @@
             list-style: none;
         }
 
-        /* Modificações para o Accordion (Sanfona) */
         .service-item {
             display: flex;
             flex-direction: column;
             padding: 16px 0;
             border-bottom: 1px dashed rgba(139, 90, 83, 0.2);
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* Remove aquele fundo azul no celular ao clicar */
+            -webkit-tap-highlight-color: transparent; 
         }
 
         .service-item:last-child {
@@ -214,7 +213,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Estilo da descrição (escondida por padrão) */
         .service-desc {
             max-height: 0;
             overflow: hidden;
@@ -230,15 +228,20 @@
             line-height: 1.4;
         }
 
-        /* Classes ativas quando o item é clicado */
         .service-item.active .service-icon {
-            transform: rotate(180deg); /* Vira a setinha pra cima */
+            transform: rotate(180deg); 
             color: var(--primary);
         }
 
         .service-item.active .service-desc {
-            max-height: 80px; /* Espaço suficiente para 2/3 linhas de texto */
+            max-height: 80px; 
             opacity: 1;
+        }
+
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; 
         }
 
         .btn-whatsapp {
@@ -254,7 +257,7 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 1.1rem;
-            margin-bottom: 15px;
+            /* margin-bottom foi removido daqui */
             box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
             transition: all 0.3s ease;
         }
@@ -420,11 +423,19 @@
         </section>
 
         <section class="actions animate-4">
+            <!-- 1. Principal: Conversão -->
             <a href="#" class="btn-whatsapp">
                 <i class="fa-brands fa-whatsapp fa-lg"></i>
                 Agendar meu horário
             </a>
 
+            <!-- 2. Secundário: Logística -->
+            <a href="https://maps.app.goo.gl/W5NPfMxEvrCH7de79" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+                <i class="fa-solid fa-map-location-dot fa-lg"></i>
+                Ver como chegar
+            </a>
+
+            <!-- 3. Secundário: Relacionamento -->
             <a href="https://www.instagram.com/anacnails.1/" target="_blank" rel="noopener noreferrer" class="btn-instagram">
                 <i class="fa-brands fa-instagram fa-lg"></i>
                 Acompanhe no Instagram
