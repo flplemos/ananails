@@ -212,8 +212,16 @@
             <span class="dot active" onclick="currentSlide(0)"></span>
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
         </div>
     </div>
+
+    <!-- Botão flutuante do WhatsApp -->
+    <a href="https://wa.me/5584986191521" target="_blank" class="floating-whatsapp" id="floatingWhatsapp">
+        <i class="fa-brands fa-whatsapp fa-2xl"></i>
+    </a>
 
 <script>
         /* --- Lógica da Sanfona de Serviços --- */
@@ -234,7 +242,11 @@
         const images = [
             "1.png", 
             "2.png", 
-            "3.png"
+            "4.jpg",
+            "5.jpg",
+            "6.jpg",
+            "7.jpg",
+            "8.jpg"
         ];
         
         // 🚀 OTIMIZAÇÃO: Pré-carregamento (Preload) das imagens
@@ -325,6 +337,34 @@
                 e.preventDefault();
             }
         });
+
+        /* --- Lógica do Botão Flutuante do WhatsApp --- */
+        const floatingWhatsapp = document.getElementById('floatingWhatsapp');
+        const actionsSection = document.querySelector('.actions');
+        
+        function toggleFloatingButton() {
+            const windowHeight = window.innerHeight;
+            const actionsRect = actionsSection.getBoundingClientRect();
+            
+            // O botão de whatsapp do rodapé fica na seção ".actions"
+            // Queremos sumir o flutuante assim que o rodapé começar a aparecer
+            // Isso ocorre quando o topo da seção de ações entra na tela (actionsRect.top < windowHeight)
+            const isActionsVisible = (actionsRect.top < windowHeight && actionsRect.bottom > 0);
+            
+            if (!isActionsVisible) {
+                floatingWhatsapp.classList.add('show');
+            } else {
+                floatingWhatsapp.classList.remove('show');
+            }
+        }
+        
+        window.addEventListener('scroll', toggleFloatingButton, { passive: true });
+        
+        // Chama a função imediatamente para garantir que apareça assim que a tela abre
+        toggleFloatingButton();
+        
+        // Também chama no load para garantir medidas perfeitas
+        window.addEventListener('load', toggleFloatingButton);
     </script>
 </body>
 </html>
