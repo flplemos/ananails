@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ana Nails | Sua autoestima começa nas unhas</title>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18380652080"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18380652080');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ana Nails | Sua autoestima começa nas unhas</title>
@@ -208,13 +211,8 @@
             <a class="prev" onclick="changeImage(-1)"><i class="fa-solid fa-chevron-left"></i></a>
             <a class="next" onclick="changeImage(1)"><i class="fa-solid fa-chevron-right"></i></a>
         </div>
-        <div class="modal-indicators">
-            <span class="dot active" onclick="currentSlide(0)"></span>
-            <span class="dot" onclick="currentSlide(1)"></span>
-            <span class="dot" onclick="currentSlide(2)"></span>
-            <span class="dot" onclick="currentSlide(3)"></span>
-            <span class="dot" onclick="currentSlide(4)"></span>
-            <span class="dot" onclick="currentSlide(5)"></span>
+        <div class="modal-indicators" id="modalIndicators">
+            <!-- As bolinhas serão geradas dinamicamente pelo JavaScript -->
         </div>
     </div>
 
@@ -259,6 +257,17 @@
         let currentImageIndex = 0;
         const modal = document.getElementById('portfolioModal');
         const modalImg = document.getElementById('modalImage');
+        const indicatorsContainer = document.getElementById('modalIndicators');
+
+        // Gera as bolinhas dinamicamente com base no array de imagens
+        images.forEach((_, index) => {
+            const dot = document.createElement('span');
+            dot.classList.add('dot');
+            if (index === 0) dot.classList.add('active');
+            dot.onclick = () => currentSlide(index);
+            indicatorsContainer.appendChild(dot);
+        });
+
         const dots = document.querySelectorAll('.dot');
 
         function openModal() {
