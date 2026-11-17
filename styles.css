@@ -3,11 +3,15 @@
 ========================================= */
 :root {
     --bg-color: #FCE4E0;
-    --primary: #8B5A53;
-    --primary-light: #a9756d; 
+    --primary: #6F433D;        /* Títulos e texto principal (contraste 6.8:1 no rosa) */
+    --text-soft: #8B5A53;      /* Texto secundário: descrições, endereço, rodapé (4.7:1 no rosa, 5.7:1 no branco) */
+    --primary-light: #a9756d;  /* Só decoração: ícones, bordas, barra de rolagem */
     --white: #FFFFFF;
-    --wpp-green: #25D366;
-    --wpp-hover: #20b858;
+    --wpp-green: #15803D;      /* Verde mais escuro: texto branco legível (5:1) */
+    --wpp-hover: #116B33;
+    --font-title: 'Playfair Display', Georgia, serif;
+    --font-body: 'Lato', sans-serif;
+    --font-number: 'Montserrat', sans-serif;
 }
 
 * {
@@ -17,23 +21,58 @@
 }
 
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: var(--font-body);
     background-color: var(--bg-color);
     color: var(--primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .service-price {
-    font-family: 'Montserrat', sans-serif;
+h1, h2, h3 {
+    font-family: var(--font-title);
     font-weight: 600;
+}
+
+.service-price {
+    font-family: var(--font-number);
+    font-weight: 600;
+}
+
+/* Esconde só visualmente (continua para leitores de tela e Google) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Botões sem aparência padrão do navegador */
+.btn-reset {
+    background: none;
+    border: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Contorno visível ao navegar pelo teclado */
+:focus-visible {
+    outline: 3px solid var(--primary);
+    outline-offset: 3px;
+    border-radius: 6px;
 }
 
 .container {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 20px 90px; /* Espaço no fim para o botão flutuante não cobrir o rodapé */
 }
 
 /* =========================================
@@ -61,48 +100,52 @@ html {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: var(--primary);
+    background-color: var(--text-soft);
 }
 
 /* =========================================
    ANIMAÇÕES DE ENTRADA
 ========================================= */
 @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.animate-1 { opacity: 0; animation: fadeUp 0.8s ease-out 0.1s forwards; }
-.animate-2 { opacity: 0; animation: fadeUp 0.8s ease-out 0.3s forwards; }
-.animate-3 { opacity: 0; animation: fadeUp 0.8s ease-out 0.5s forwards; }
-.animate-4 { opacity: 0; animation: fadeUp 0.8s ease-out 0.7s forwards; }
+.animate-1 { opacity: 0; animation: fadeUp 0.5s ease-out 0s forwards; }
+.animate-2 { opacity: 0; animation: fadeUp 0.5s ease-out 0.08s forwards; }
+.animate-3 { opacity: 0; animation: fadeUp 0.5s ease-out 0.16s forwards; }
+.animate-4 { opacity: 0; animation: fadeUp 0.5s ease-out 0.24s forwards; }
 
 /* =========================================
    CABEÇALHO, LOGO E "STORY"
 ========================================= */
 header {
     text-align: center;
-    padding: 40px 0 20px;
+    padding: 40px 0 16px;
 }
 
-/* O anel do "Story" */
+/* O anel do "Story" (agora é um botão: funciona com teclado e leitor de tela) */
 .logo-ring {
+    position: relative;
     width: 142px;
     height: 142px;
-    margin: 0 auto 20px;
+    margin: 0 auto 22px;
     border-radius: 50%;
     background: linear-gradient(45deg, var(--primary), var(--primary-light));
     padding: 4px; /* Espessura do degradê */
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.3s ease;
-    box-shadow: 0 8px 20px rgba(139, 90, 83, 0.2);
+    transition: transform 0.25s ease;
+    box-shadow: 0 8px 20px rgba(111, 67, 61, 0.2);
 }
 
 .logo-ring:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
+}
+
+.logo-ring:focus-visible {
+    border-radius: 50%;
 }
 
 .logo-container {
@@ -124,32 +167,31 @@ header {
 }
 
 /* --- Etiqueta "Ver fotos" na Logo --- */
-.logo-ring {
-    position: relative; /* Isso é necessário para a etiqueta flutuar no lugar certo */
-}
-
 .photo-badge {
     position: absolute;
-    bottom: -10px; /* Faz a etiqueta ficar metade dentro e metade fora da logo */
+    bottom: -10px; /* Metade dentro e metade fora da logo */
     background-color: var(--white);
     color: var(--primary);
     font-size: 0.75rem;
     font-weight: 700;
     padding: 4px 14px;
     border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(139, 90, 83, 0.25);
+    box-shadow: 0 4px 12px rgba(111, 67, 61, 0.25);
     display: flex;
     align-items: center;
     gap: 6px;
-    pointer-events: none; /* Garante que o clique passe por ela e ative a logo */
+    pointer-events: none;
     z-index: 2;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 .slogan {
-    font-size: 1.15rem;
+    font-family: var(--font-title);
+    font-size: 1.35rem;
     font-style: italic;
+    font-weight: 500;
     margin-bottom: 8px;
     color: var(--primary);
 }
@@ -160,9 +202,71 @@ header {
     align-items: center;
     justify-content: center;
     gap: 6px;
-    margin-bottom: 25px;
-    color: var(--primary-light);
+    color: var(--text-soft);
     font-weight: 700;
+}
+
+/* =========================================
+   FAIXA DE FOTOS (TRABALHOS RECENTES)
+========================================= */
+.gallery-strip {
+    margin: 8px 0 28px;
+}
+
+.gallery-strip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.gallery-strip h2 {
+    font-size: 1.25rem;
+}
+
+.gallery-see-all {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    padding: 6px 0; /* Área de toque maior */
+}
+
+.gallery-track {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 2px 10px;
+    scrollbar-width: thin;
+}
+
+.gallery-thumb {
+    flex: 0 0 auto;
+    width: 112px;
+    height: 140px;
+    border-radius: 14px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    box-shadow: 0 6px 16px rgba(111, 67, 61, 0.15);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.gallery-thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-thumb:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(111, 67, 61, 0.22);
+}
+
+.gallery-thumb:focus-visible {
+    border-radius: 14px;
 }
 
 /* =========================================
@@ -173,24 +277,21 @@ header {
     border-radius: 20px;
     padding: 30px 20px;
     margin: 0 0 30px;
-    box-shadow: 0 10px 30px rgba(139, 90, 83, 0.08);
+    box-shadow: 0 10px 30px rgba(111, 67, 61, 0.08);
 }
 
 .services h2 {
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.4rem;
+    margin-bottom: 16px;
+    font-size: 1.7rem;
     color: var(--primary);
-    position: relative;
-    text-transform: uppercase;
-    letter-spacing: 1px;
 }
 
 .services h2::after {
     content: '';
     display: block;
     width: 40px;
-    height: 3px;
+    height: 2px;
     background-color: var(--primary-light);
     margin: 10px auto 0;
     border-radius: 2px;
@@ -199,21 +300,20 @@ header {
 .service-list { list-style: none; }
 
 .service-item {
-    display: flex;
-    flex-direction: column;
-    padding: 16px 0;
-    border-bottom: 1px dashed rgba(139, 90, 83, 0.2);
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent; 
+    border-bottom: 1px dashed rgba(111, 67, 61, 0.2);
 }
 
 .service-item:last-child { border-bottom: none; }
 
+/* O cabeçalho do serviço é um botão: dá para abrir com Tab + Enter */
 .service-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    min-height: 44px;
+    padding: 14px 0;
+    text-align: left;
 }
 
 .service-name {
@@ -245,26 +345,119 @@ header {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: all 0.3s ease-in-out;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 .service-desc p {
-    font-family: 'Lato', sans-serif;
-    font-size: 0.9rem;
-    color: var(--primary-light);
-    padding-top: 8px;
-    line-height: 1.4;
+    font-size: 0.95rem;
+    color: var(--text-soft);
+    padding-bottom: 14px;
+    line-height: 1.5;
 }
 
 .service-item.active .service-icon {
-    transform: rotate(180deg); 
+    transform: rotate(180deg);
     color: var(--primary);
 }
 
 .service-item.active .service-desc {
-    max-height: 80px; 
+    max-height: 200px;
     opacity: 1;
 }
+
+/* =========================================
+   DEPOIMENTOS E HORÁRIOS (prontos para usar — ver comentários no index.html)
+========================================= */
+/* --- Nota do Google --- */
+.google-rating {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 0 0 30px;
+    box-shadow: 0 10px 30px rgba(111, 67, 61, 0.08);
+    text-align: center;
+}
+
+.google-rating h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.rating-score {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.rating-stars {
+    color: #B7791F; /* Dourado: 3.4:1 no branco (suficiente para ícones) */
+    font-size: 1.1rem;
+    letter-spacing: 3px;
+    margin: 4px 0 6px;
+}
+
+.rating-count {
+    color: var(--text-soft);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.testimonials,
+.hours {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 30px 20px;
+    margin: 0 0 30px;
+    box-shadow: 0 10px 30px rgba(111, 67, 61, 0.08);
+}
+
+.testimonials h2,
+.hours h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+}
+
+.testimonial {
+    padding: 16px 0;
+    border-bottom: 1px dashed rgba(111, 67, 61, 0.2);
+}
+
+.testimonial:last-child { border-bottom: none; }
+
+.testimonial-stars {
+    color: #B7791F;
+    font-size: 0.85rem;
+    margin-bottom: 6px;
+}
+
+.testimonial blockquote {
+    font-style: italic;
+    color: var(--primary);
+}
+
+.testimonial cite {
+    display: block;
+    margin-top: 6px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-soft);
+}
+
+.hours-list {
+    list-style: none;
+}
+
+.hours-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(111, 67, 61, 0.2);
+}
+
+.hours-list li:last-child { border-bottom: none; }
 
 /* =========================================
    BOTÕES E AÇÕES
@@ -272,7 +465,7 @@ header {
 .actions {
     display: flex;
     flex-direction: column;
-    gap: 15px; 
+    gap: 15px;
 }
 
 .btn-whatsapp {
@@ -288,14 +481,14 @@ header {
     text-decoration: none;
     font-weight: 700;
     font-size: 1.1rem;
-    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 15px rgba(21, 128, 61, 0.3);
+    transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .btn-whatsapp:hover {
     background-color: var(--wpp-hover);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(21, 128, 61, 0.4);
 }
 
 .btn-instagram {
@@ -312,17 +505,17 @@ header {
     text-decoration: none;
     font-weight: 700;
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
 }
 
 .btn-instagram:hover {
     background-color: var(--primary);
     color: var(--bg-color);
-    transform: translateY(-3px);
+    transform: translateY(-2px);
 }
 
 .btn-instagram:active {
-    background-color: rgba(139, 90, 83, 0.1); /* Dá um leve brilho vinho ao tocar */
+    background-color: rgba(111, 67, 61, 0.1);
 }
 
 /* =========================================
@@ -333,15 +526,9 @@ header {
     margin-top: 5px;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(139, 90, 83, 0.08);
-    border: 2px solid rgba(139, 90, 83, 0.1);
+    box-shadow: 0 10px 30px rgba(111, 67, 61, 0.08);
+    border: 2px solid rgba(111, 67, 61, 0.1);
     background-color: var(--white);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.map-container:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 35px rgba(139, 90, 83, 0.15);
 }
 
 .map-container iframe {
@@ -356,15 +543,16 @@ header {
 ========================================= */
 footer {
     text-align: center;
-    padding: 30px 0 20px;
-    font-size: 0.8rem;
-    color: var(--primary-light);
+    padding: 30px 0 0;
+    font-size: 0.85rem;
+    color: var(--text-soft);
 }
 
 @media (min-width: 480px) {
     .services { padding: 40px 30px; }
     .service-name { font-size: 1.1rem; }
     .service-price { font-size: 1.2rem; }
+    .gallery-thumb { width: 128px; height: 160px; }
 }
 
 /* =========================================
@@ -385,25 +573,31 @@ footer {
     visibility: hidden;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.4s ease, visibility 0.4s ease; 
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal.show {
     visibility: visible;
     opacity: 1;
     pointer-events: auto;
+    /* Ao abrir, fica visível na hora (para o foco do teclado funcionar); só o esmaecimento é animado */
+    transition: opacity 0.3s ease, visibility 0s;
+}
+
+.modal :focus-visible {
+    outline-color: var(--white);
 }
 
 .modal-content {
     position: relative;
-    max-width: 95%; /* Um pouco mais largo no celular */
-    max-height: 75vh; /* Dá um respiro maior em cima e embaixo */
+    max-width: 95%;
+    max-height: 75vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: scale(0.85);
+    transform: scale(0.9);
     opacity: 0;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 
 .modal.show .modal-content {
@@ -420,7 +614,7 @@ footer {
 }
 
 .fade-img {
-    animation: fadeInImg 0.4s ease-in-out;
+    animation: fadeInImg 0.35s ease-in-out;
 }
 
 @keyframes fadeInImg {
@@ -428,47 +622,52 @@ footer {
     100% { opacity: 1; transform: scale(1); }
 }
 
-/* --- Botão de Fechar com Fundo Delicado no Mobile --- */
+.modal-counter {
+    color: var(--bg-color);
+    font-size: 0.85rem;
+    margin-top: 14px;
+    letter-spacing: 1px;
+}
+
+/* --- Botão de Fechar --- */
 .close-modal {
     position: absolute;
     top: 15px;
     right: 15px;
     color: var(--white);
-    font-size: 24px;
-    width: 38px;
-    height: 38px;
+    font-size: 28px;
+    line-height: 1;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.3); /* Fundo sutil para não sumir na foto */
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.25s ease;
     z-index: 1005;
 }
 
-.close-modal:hover { 
-    background-color: var(--primary); 
+.close-modal:hover {
+    background-color: var(--text-soft);
 }
 
-/* --- Setas com Fundo Delicado no Mobile --- */
+/* --- Setas --- */
 .prev, .next {
-    cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.3); /* Fundo sutil */
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 50%;
     color: var(--white);
     font-size: 18px;
-    transition: 0.3s ease;
+    transition: background-color 0.25s ease, transform 0.25s ease;
     user-select: none;
-    text-decoration: none;
     z-index: 10;
 }
 
@@ -476,44 +675,51 @@ footer {
 .prev { left: 10px; }
 .next { right: 10px; }
 
-.prev:hover, .next:hover { 
-    background-color: var(--primary); 
-    transform: translateY(-50%) scale(1.1); 
+.prev:hover, .next:hover {
+    background-color: var(--text-soft);
+    transform: translateY(-50%) scale(1.08);
 }
 
 .modal-indicators {
-    margin-top: 25px;
+    margin-top: 18px;
     display: flex;
-    gap: 10px;
+    gap: 4px;
 }
 
+/* Bolinha é um botão de 24px (fácil de tocar) com o ponto de 8px desenhado dentro */
 .dot {
-    cursor: pointer;
-    height: 8px;
-    width: 8px;
-    background-color: rgba(252, 228, 224, 0.4);
-    border-radius: 50%;
-    transition: all 0.3s ease;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.dot.active, .dot:hover {
+.dot::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(252, 228, 224, 0.4);
+    transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.dot.active::before, .dot:hover::before {
     background-color: var(--bg-color);
     transform: scale(1.4);
 }
 
-/* --- No Desktop as coisas ganham espaço (Adaptação para PC) --- */
+/* --- No Desktop as coisas ganham espaço --- */
 @media (min-width: 768px) {
     .modal-content {
-        max-width: 80%; /* Evita que a foto grude nas setas no PC */
+        max-width: 80%;
     }
-    
+
     .close-modal {
         top: 25px;
         right: 35px;
-        background-color: transparent; /* Tira o fundo redondo no PC */
+        background-color: transparent;
         font-size: 40px;
-        width: auto;
-        height: auto;
     }
 
     .close-modal:hover {
@@ -522,45 +728,42 @@ footer {
     }
 
     .prev, .next {
-        background-color: transparent; /* Tira o fundo redondo no PC */
+        background-color: transparent;
         font-size: 32px;
-        width: auto;
-        height: auto;
-        text-shadow: 0 2px 8px rgba(0,0,0,0.6); /* Sombrinha na própria seta */
+        text-shadow: 0 2px 8px rgba(0,0,0,0.6);
     }
 
     /* Joga as setas para fora da foto no PC */
-    .prev { left: -60px; }
-    .next { right: -60px; }
+    .prev { left: -64px; }
+    .next { right: -64px; }
 
-    .prev:hover, .next:hover { 
-        background-color: transparent; 
+    .prev:hover, .next:hover {
+        background-color: transparent;
         color: var(--primary-light);
-        transform: translateY(-50%) scale(1.1); 
     }
-}/* =========================================
+}
+
+/* =========================================
    BOTÃO FLUTUANTE WHATSAPP
 ========================================= */
 .floating-whatsapp {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background-color: rgba(37, 211, 102, 0.85);
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    right: 16px;
+    width: 52px;
+    height: 52px;
+    background-color: var(--wpp-green);
     color: var(--white);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    box-shadow: 0 4px 15px rgba(21, 128, 61, 0.4);
     z-index: 999;
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px) scale(0.9);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
     text-decoration: none;
 }
 
@@ -571,7 +774,34 @@ footer {
 }
 
 .floating-whatsapp:hover {
-    background-color: var(--wpp-green);
-    transform: translateY(-5px) scale(1.05);
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+    background-color: var(--wpp-hover);
+    transform: translateY(-3px) scale(1.05);
+}
+
+@media (min-width: 768px) {
+    .floating-whatsapp {
+        width: 60px;
+        height: 60px;
+        bottom: 30px;
+        right: 30px;
+    }
+}
+
+/* =========================================
+   MOVIMENTO REDUZIDO
+   Se o aparelho pede "reduzir movimento", tudo aparece direto, sem animação
+========================================= */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    .animate-1, .animate-2, .animate-3, .animate-4 {
+        opacity: 1;
+        animation: none;
+    }
+
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
