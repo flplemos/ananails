@@ -49,15 +49,6 @@
             </div>
         </header>
 
-        <!-- FAIXA DE FOTOS: as miniaturas são geradas pelo JavaScript a partir da lista "images" -->
-        <section class="gallery-strip animate-2" aria-labelledby="titulo-trabalhos">
-            <div class="gallery-strip-header">
-                <h2 id="titulo-trabalhos">Trabalhos recentes</h2>
-                <button type="button" class="btn-reset gallery-see-all" id="seeAllButton" aria-haspopup="dialog">Ver todas</button>
-            </div>
-            <div class="gallery-track" id="galleryTrack"></div>
-        </section>
-
         <section id="servicos" class="services animate-3" aria-labelledby="titulo-servicos">
             <h2 id="titulo-servicos">Nossos Serviços</h2>
             <ul class="service-list">
@@ -195,20 +186,6 @@
             </ul>
         </section>
 
-        <!-- AVALIAÇÕES DO GOOGLE: atualizar a nota e a quantidade quando mudarem na ficha -->
-        <section class="google-rating animate-3" aria-labelledby="titulo-avaliacoes">
-            <h2 id="titulo-avaliacoes">Avaliações no Google</h2>
-            <p class="rating-score">5,0</p>
-            <div class="rating-stars" role="img" aria-label="Nota 5 de 5 estrelas">
-                <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
-            </div>
-            <p class="rating-count">Baseado em 8 avaliações de clientes</p>
-            <a href="https://www.google.com/maps?cid=2787930559509035166" target="_blank" rel="noopener noreferrer" class="btn-instagram">
-                <i class="fa-brands fa-google" aria-hidden="true"></i>
-                Ler as avaliações
-            </a>
-        </section>
-
         <!--
             DEPOIMENTOS — pronto para usar, só falta o conteúdo.
             Use somente avaliações REAIS de clientes (com autorização para publicar o nome).
@@ -265,6 +242,20 @@
             </div>
         </section>
 
+        <!-- AVALIAÇÕES DO GOOGLE: atualizar a nota e a quantidade quando mudarem na ficha -->
+        <section class="google-rating animate-4" aria-labelledby="titulo-avaliacoes">
+            <h2 id="titulo-avaliacoes">Avaliações no Google</h2>
+            <p class="rating-score">5,0</p>
+            <div class="rating-stars" role="img" aria-label="Nota 5 de 5 estrelas">
+                <i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i><i class="fa-solid fa-star" aria-hidden="true"></i>
+            </div>
+            <p class="rating-count">Baseado em 8 avaliações de clientes</p>
+            <a href="https://www.google.com/maps?cid=2787930559509035166" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+                <i class="fa-brands fa-google" aria-hidden="true"></i>
+                Ler as avaliações
+            </a>
+        </section>
+
         <footer class="animate-4">
             <p>&copy; 2026 Ana Nails. Todos os direitos reservados.</p>
         </footer>
@@ -312,10 +303,9 @@
         });
 
         /* --- Galeria de Fotos --- */
-        // Para adicionar uma foto: coloque "N.webp" e "N-mini.webp" na pasta fotos/ e inclua o nome aqui
+        // Para adicionar uma foto: coloque "N.webp" na pasta fotos/ e inclua o nome aqui
         const images = ["1", "2", "4", "5", "6", "7", "8"];
         const fullSrc = name => `fotos/${name}.webp`;
-        const miniSrc = name => `fotos/${name}-mini.webp`;
 
         let currentImageIndex = 0;
         let lastFocused = null;
@@ -325,20 +315,7 @@
         const modalImg = document.getElementById('modalImage');
         const modalCounter = document.getElementById('modalCounter');
         const indicatorsContainer = document.getElementById('modalIndicators');
-        const galleryTrack = document.getElementById('galleryTrack');
         const closeButton = document.getElementById('closeModalButton');
-
-        // Miniaturas da faixa "Trabalhos recentes"
-        images.forEach((name, index) => {
-            const thumb = document.createElement('button');
-            thumb.type = 'button';
-            thumb.className = 'gallery-thumb btn-reset';
-            thumb.setAttribute('aria-label', `Abrir foto ${index + 1} de ${images.length}`);
-            thumb.setAttribute('aria-haspopup', 'dialog');
-            thumb.innerHTML = `<img src="${miniSrc(name)}" alt="" loading="lazy" decoding="async">`;
-            thumb.addEventListener('click', () => openModal(index));
-            galleryTrack.appendChild(thumb);
-        });
 
         // Bolinhas do modal
         images.forEach((_, index) => {
@@ -405,7 +382,6 @@
         }
 
         document.getElementById('logoButton').addEventListener('click', () => openModal(0));
-        document.getElementById('seeAllButton').addEventListener('click', () => openModal(0));
         closeButton.addEventListener('click', closeModal);
         document.getElementById('prevButton').addEventListener('click', () => changeImage(-1));
         document.getElementById('nextButton').addEventListener('click', () => changeImage(1));
